@@ -1,8 +1,6 @@
 package com.ewapp.gbank.web;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -11,17 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ewapp.gbank.web.dto.ABaseDTO;
 import com.ewapp.gbank.web.dto.Action;
-import com.github.dandelion.datatables.core.ajax.ColumnDef;
-import com.github.dandelion.datatables.core.ajax.DatatablesCriterias;
 
 public abstract class AWebController<T extends ABaseDTO> {
 
@@ -129,26 +120,6 @@ public abstract class AWebController<T extends ABaseDTO> {
     return modelAndView;
   }
 
-  /**
-   * Change DatatablesCriterias to Pageable
-   * 
-   * @param criterias
-   * @return Pageable
-   */
-  protected Pageable toPageable(DatatablesCriterias criterias) {
-    Sort sort = null;
-    // Handle sorting if provided
-    if (criterias.hasOneSortedColumn()) {
-      List<Sort.Order> orders = new ArrayList<Sort.Order>();
-      for (ColumnDef columnDef : criterias.getSortingColumnDefs()) {
-        orders.add(new Order(Direction.valueOf(columnDef.getSortDirection().name()), columnDef.getName()));
-      }
-      sort = new Sort(orders);
-    }
-    int start = criterias.getStart() > 0 ? criterias.getStart() : 1;
-    int size = criterias.getLength();
-    return new PageRequest(start / size, size, sort);
-  }
 
   /**
    * Return main page tag, this tag must be started with "/".

@@ -16,10 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ewapp.gbank.service.ICrudService;
 import com.ewapp.gbank.web.dto.ABaseDTO;
 import com.ewapp.gbank.web.dto.AlertMessageDto;
-import com.github.dandelion.datatables.core.ajax.DataSet;
-import com.github.dandelion.datatables.core.ajax.DatatablesCriterias;
-import com.github.dandelion.datatables.core.ajax.DatatablesResponse;
-import com.github.dandelion.datatables.extras.spring3.ajax.DatatablesParams;
 
 public abstract class ACrudController<T extends ABaseDTO> extends AWebController<T> {
 
@@ -33,12 +29,10 @@ public abstract class ACrudController<T extends ABaseDTO> extends AWebController
   }
 
   @RequestMapping(value = "/list", method = RequestMethod.GET)
-  public @ResponseBody DatatablesResponse<T> listTableData(@DatatablesParams DatatablesCriterias criterias,
-      HttpServletRequest request) {
-    Page<T> pageResult = crudService.findPage(toPageable(criterias), criterias.getSearch());
+  public @ResponseBody Page<T> listTableData(HttpServletRequest request) {
+    Page<T> pageResult = crudService.findPage(null, null);
     initializeAction(pageResult.getContent(), getActions(request));
-    DataSet<T> dataSet = new DataSet<T>(pageResult.getContent(), crudService.count(), pageResult.getTotalElements());
-    return DatatablesResponse.build(dataSet, criterias);
+    return pageResult;
   }
 
   @RequestMapping(value = "/new", method = RequestMethod.GET)
