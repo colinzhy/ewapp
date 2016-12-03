@@ -1,0 +1,45 @@
+{
+    "bundle" : "dt-functions",
+    "assets": [
+		{
+		    "name": "dt-functions",
+		    "version": "0.1",
+		    "type": "js",
+		    "locations": {
+		        "classpath": "public/js/dt-functions.js"
+		    }
+		},
+		{
+            "name": "datatables",
+            "version": "1.10.7",
+            "type": "js",
+            "locations": {
+                "classpath": "public/plugins/datatables/jquery.dataTables.min.js"
+            }
+        },
+        {
+            "name": "datatables",
+            "version": "1.10.7",
+            "type": "css",
+            "locations": {
+                "classpath": "public/plugins/datatables/jquery.dataTables.min.css"
+            }
+        },
+		{
+            "name": "bootstrap3-theme-js",
+            "version": "1.10.7",
+            "type": "js",
+            "locations": {
+                "classpath": "public/plugins/datatables/dataTables.bootstrap.min.js"
+            }
+        },
+        {
+            "name": "bootstrap3-theme-css",
+            "version": "1.10.7",
+            "type": "css",
+            "locations": {
+                "classpath": "public/plugins/datatables/dataTables.bootstrap.css"
+            }
+        }
+    ]
+}       

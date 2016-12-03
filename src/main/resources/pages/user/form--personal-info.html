@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body th:fragment="userForm">
+	<form th:object="${user}" action="/user/edit/" class="form-horizontal"
+		method='POST' th:method="${user['userName']} != null ? 'put' : 'post'"
+		th:action="${user['userName']} != null ? '/user/edit/' + ${user['userName']} : '/user/new'">
+		<div class="form-group"
+			th:classappend="${#fields.hasErrors('userName')} ? has-error">
+			<label class="col-sm-2 control-label"
+				th:text="#{user.label.userName}" for="userName"> User Name</label>
+			<div class="col-sm-10">
+				<input type="text" data-required="1" th:field="*{userName}"
+					th:placeholder="#{user.placeholder.username}"
+					placeholder="Last userName" class="form-control" id="userName" />
+				<span th:if="${#fields.hasErrors('userName')}" class="help-block"
+					th:errors="*{userName}"></span>
+			</div>
+		</div>
+		<div class="form-group"
+			th:classappend="${#fields.hasErrors('email')} ? has-error">
+			<label class="col-sm-2 control-label"
+				th:text="#{user.label.email}" for="email">Email</label>
+			<div class="col-sm-10">
+				<input type="text" data-required="1" th:field="*{email}"
+					th:placeholder="#{user.placeholder.email}"
+					placeholder="Email" class="form-control" id="email" /> <span
+					th:if="${#fields.hasErrors('email')}" class="help-block"
+					th:errors="*{email}"></span>
+			</div>
+		</div>
+		<div class="form-group" th:unless="${user['userName']} != null"
+			th:classappend="${#fields.hasErrors('*{password}')} ? has-error">
+			<label class="col-sm-2 control-label"
+				th:text="#{user.label.password}" for="password">Password</label>
+			<div class="col-sm-10">
+				<input type="text" th:field="*{password}"
+					th:placeholder="#{user.placeholder.password}"
+					placeholder="Password" class="form-control" id="password" /> <span
+					th:if="${#fields.hasErrors('password')}" class="help-block"
+					th:errors="*{password}"></span>
+			</div>
+		</div>
+		<!-- 
+		<div class="form-group"
+			th:classappend="${#fields.hasErrors('language')} ? has-error">
+			<label class="col-sm-2 control-label"
+				th:text="#{user.creation.label.language}" for="language">Language</label>
+			<div class="col-sm-10">
+				<select th:field="*{language}" class="form-control" id="language">
+					<option th:each="language : ${languages}" th:value="${language}"
+						th:text="${language.name()}"></option>
+				</select> <span th:if="${#fields.hasErrors('language')}" class="help-block"
+					th:errors="*{language}"></span>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"
+				th:text="#{user.creation.label.roles}" for="roles">Roles</label>
+			<div class="col-sm-10">
+				<select multiple="multiple" th:field="*{roles}" class="form-control"
+					size="5" id="roles">
+					<option th:each="role : ${roles}"
+						th:selected="${user.roles} != null AND ${#lists.contains(user.roles,role)} ? selected"
+						th:value="${role.id}" th:text="${role.name}"></option>
+				</select>
+			</div>
+		</div>
+		 -->
+		<div class="box-footer">
+			<a href="#" th:href="@{/user/}" class="btn btn-sm"
+				th:text="#{general.cancel}">Cancel</a>
+			<button type="submit" class="btn btn-info pull-right">
+				<i class="fa fa-check"></i> <span th:text="#{general.save}">Save
+					Changes</span>
+			</button>
+		</div>
+	</form>
+</body>
+</html>

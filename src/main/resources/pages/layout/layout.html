@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" th:lang="${#locale}" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>AdminLTE 2 | Starter</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+	name="viewport" />
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/bootstrap/css/bootstrap.min.css}"
+	href="../public/bootstrap/css/bootstrap.min.css" />
+<!-- Font Awesome -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" />
+<!-- Ionicons -->
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+<!-- Theme style -->
+<link rel="stylesheet" type="text/css"
+	th:href="@{/dist/css/AdminLTE.min.css}"
+	href="../public/dist/css/AdminLTE.min.css" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/dist/css/skins/skin-yellow.min.css}"
+	href="../public/dist/css/skins/skin-yellow.min.css" />
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="hold-transition skin-yellow sidebar-mini">
+	<div class="wrapper">
+		<div th:include="layout/header :: layoutContent">...</div>
+		<div th:include="layout/sidebar :: layoutContent">...</div>
+		<div th:include="layout/content_wrapper :: layoutContent">...</div>
+		<div th:include="layout/footer :: layoutContent">...</div>
+	</div>
+	<!-- REQUIRED JS SCRIPTS -->
+	<!-- jQuery 2.2.3 -->
+	<script type="text/javascript"
+		th:src="@{/plugins/jQuery/jquery-2.2.3.min.js}"
+		src="../public/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<!-- Bootstrap 3.3.6 -->
+	<script type="text/javascript"
+		th:src="@{/bootstrap/js/bootstrap.min.js}"
+		src="../public/bootstrap/js/bootstrap.min.js"></script>
+	<!-- AdminLTE App -->
+	<script type="text/javascript" th:src="@{/dist/js/app.min.js}"
+		src="../public/dist/js/app.min.js"></script>
+	<div layout:fragment="custom-js"></div>
+</body>
+</html>
