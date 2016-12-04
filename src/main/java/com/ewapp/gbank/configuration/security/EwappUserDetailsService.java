@@ -18,7 +18,7 @@ public class EwappUserDetailsService implements UserDetailsService {
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    User user = userRepository.findOne(username);
+    User user = userRepository.findByUsernameOrEmail(username);
     if (user == null) {
       throw new UsernameNotFoundException("login.username.notfound");
     }

@@ -39,11 +39,11 @@
 			</p>
 			<form th:action="@{/login}" method="post">
 				<div class="form-group has-feedback">
-					<input type="email" class="form-control" placeholder="Email" /> <span
+					<input type="text" class="form-control" name="username" placeholder="User name or email" /> <span
 						class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="password" class="form-control" placeholder="Password" /> <span
+					<input type="password" class="form-control" name="password" placeholder="Password" /> <span
 						class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
 				<div class="row">
