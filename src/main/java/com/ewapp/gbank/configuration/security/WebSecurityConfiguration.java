@@ -1,19 +1,22 @@
 package com.ewapp.gbank.configuration.security;
 
+import javax.inject.Inject;
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
@@ -23,8 +26,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-  @Autowired
-  protected DataSource dataSource;
+  @Inject
+  private DataSource dataSource;
+
+  @Inject
+  private UserDetailsService userDetailsService;
 
   @Override
   @Bean
@@ -34,38 +40,47 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-    super.configure(auth);
+    // build DaoAuthenticationProvider manually to enable displaying "User Not Found" error, otherwise it always
+    // displays "Bad Credential"
+    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+    authProvider.setHideUserNotFoundExceptions(false);
+    authProvider.setPasswordEncoder(passwordEncoder());
+    authProvider.setUserDetailsService(userDetailsService);
+    auth.authenticationProvider(authProvider);
   }
 
   @Override
   public void configure(HttpSecurity httpSecurity) throws Exception {
+    JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+    tokenRepository.setDataSource(dataSource);
+
     //@formatter:off
     httpSecurity//
       .formLogin()//
-          .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())// redirect to saved request after login successfully
-          .loginPage("/login")//
-              .permitAll()//
-          .failureUrl("/login-error")//
-          .defaultSuccessUrl("/")//
-          .and()//
+        .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())// redirect to saved request after login successfully
+        .loginPage("/login")//
+          .permitAll()//
+        .failureUrl("/login-error")//
+        .defaultSuccessUrl("/")//
+        .and()//
       .logout()//
-          .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))//
-              .logoutSuccessUrl("/logged-out")//
-                  .permitAll()//
-          .and()//
+        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))//
+          .logoutSuccessUrl("/logged-out")//
+            .permitAll()//
+        .and()//
       .rememberMe()//
-          .tokenRepository(persistentTokenRepository())//
-          .tokenValiditySeconds(1000000)//
-          .and()//
+        .tokenRepository(tokenRepository)//
+        .tokenValiditySeconds(1000000)//
+        .and()//
       .sessionManagement()//
-          .maximumSessions(1)//only allow user to login once a time
-              .and()//
-          .sessionFixation()//
-              .migrateSession()//
-              .and()//
+        .maximumSessions(1)//only allow user to login once a time
+          .and()//
+        .sessionFixation()//
+          .migrateSession()//
+          .and()//
       .authorizeRequests()//
-          .anyRequest()//
-              .authenticated();
+        .anyRequest()//
+          .authenticated();
       //@formatter:on
 
   }
@@ -84,10 +99,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
   }
 
   @Bean
-  public PersistentTokenRepository persistentTokenRepository() {
-    JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
-    tokenRepository.setDataSource(dataSource);
-    return tokenRepository;
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
 
 }

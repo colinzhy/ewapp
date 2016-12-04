@@ -11,8 +11,6 @@ public class UserDto extends ABaseDTO {
 
   private String email;
 
-  private String password;
-
   private String name;
 
   @Override

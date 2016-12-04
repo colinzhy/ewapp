@@ -1,6 +1,8 @@
 package com.ewapp.gbank.configuration.security;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,14 +15,16 @@ public class EwappUserDetails implements UserDetails {
 
   private final User user;
 
+  private final Set<GrantedAuthority> authorities = new HashSet<>();
+
   public EwappUserDetails(User user) {
     this.user = user;
+    // TODO: initialize authorities here
   }
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    // TODO Auto-generated method stub
-    return null;
+    return authorities;
   }
 
   @Override

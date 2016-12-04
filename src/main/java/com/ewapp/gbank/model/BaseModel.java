@@ -12,9 +12,13 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @MappedSuperclass
+@EqualsAndHashCode
+@ToString
 public abstract class BaseModel {
 
   @Column(name = "enabled")

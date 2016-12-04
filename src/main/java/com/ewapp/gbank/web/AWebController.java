@@ -3,16 +3,14 @@ package com.ewapp.gbank.web;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ewapp.gbank.web.dto.ABaseDTO;
 import com.ewapp.gbank.web.dto.Action;
+import com.ewapp.gbank.web.utils.MessageTranslator;
 
 public abstract class AWebController<T extends ABaseDTO> {
 
@@ -54,29 +52,8 @@ public abstract class AWebController<T extends ABaseDTO> {
 
   protected static final String ALT_TEXT_SUBFIX = ".action.tooltip.delete";
 
-  @Autowired
-  private MessageSource messageSource;
-
-  private MessageSourceAccessor messageSourceAccessor;
-
-  /**
-   * Initialization of Controllers.
-   */
-  @PostConstruct
-  private void init() {
-    messageSourceAccessor = new MessageSourceAccessor(messageSource);
-  }
-
-  /**
-   * Get message for given code and parameters.
-   * 
-   * @param code message label
-   * @param parameters parameters set into the message
-   * @return translated message
-   */
-  protected String getMessage(String code, String... parameters) {
-    return messageSourceAccessor.getMessage(code, parameters);
-  }
+  @Inject
+  protected MessageTranslator messageTranslator;
 
   /**
    * redirect to page tag, this tag must be started with "/".

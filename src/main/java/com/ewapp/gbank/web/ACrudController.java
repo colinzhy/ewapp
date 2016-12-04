@@ -54,7 +54,8 @@ public abstract class ACrudController<T extends ABaseDTO> extends AWebController
       RedirectAttributes redirectAttributes) {
     // TODO: handle validation exception
     crudService.create(object);
-    redirectAttributes.addFlashAttribute(ALERT_MESSAGE, AlertMessageDto.success(getMessage(LABEL_SUCCESS_CREATED)));
+    redirectAttributes.addFlashAttribute(ALERT_MESSAGE,
+        AlertMessageDto.success(messageTranslator.getMessage(LABEL_SUCCESS_CREATED)));
     return backToMainPage();
   }
 
@@ -82,7 +83,8 @@ public abstract class ACrudController<T extends ABaseDTO> extends AWebController
   public ModelAndView updateObject(@ModelAttribute("object") T object, BindingResult result,
       @PathVariable("id") String id, RedirectAttributes redirectAttributes) {
     crudService.update(object);
-    redirectAttributes.addFlashAttribute(ALERT_MESSAGE, AlertMessageDto.success(getMessage(LABEL_SUCCESS_UPDATED)));
+    redirectAttributes.addFlashAttribute(ALERT_MESSAGE,
+        AlertMessageDto.success(messageTranslator.getMessage(LABEL_SUCCESS_UPDATED)));
     return backToMainPage();
   }
 
@@ -94,7 +96,8 @@ public abstract class ACrudController<T extends ABaseDTO> extends AWebController
   @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
   public ModelAndView delete(@PathVariable("id") String id, RedirectAttributes redirectAttributes) {
     crudService.deleteById(id);
-    redirectAttributes.addFlashAttribute(ALERT_MESSAGE, AlertMessageDto.success(getMessage(LABEL_SUCCESS_DELETED)));
+    redirectAttributes.addFlashAttribute(ALERT_MESSAGE,
+        AlertMessageDto.success(messageTranslator.getMessage(LABEL_SUCCESS_DELETED)));
     return backToMainPage();
   }
 
