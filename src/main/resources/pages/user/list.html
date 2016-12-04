@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout/layout">
 <head>
 <meta charset="utf-8" />
 </head>
@@ -11,16 +12,15 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="userTable" dt:table="true" dt:serverSide="true" dt:url="@{/user/list}">
+				<table id="dataTable">
 					<thead>
 						<tr>
-							<th dt:property="userName" th:text="#{user.label.username}">User Name</th>
-							<th dt:property="email" th:text="#{user.label.email}">Email</th>
-							<th dt:property="name" th:text="#{user.label.name}">Name</th>
-							<th dt:property="lastModifiedDate" th:text="#{general.label.lastmodifieddate}">Last Modified Date</th>
-							<th dt:property="lastModifiedBy" th:text="#{general.label.lastmodifiedby}">Last Modified By</th>
-							<th dt:property="actions" th:text="#{general.label.actions}" dt:renderFunction="dt-functions#toActions"
-								dt:sortable="false">Actions</th>
+							<th id="userName" th:text="#{user.label.username}">User Name</th>
+							<th id="email" th:text="#{user.label.email}">Email</th>
+							<th id="name" th:text="#{user.label.name}">Name</th>
+							<th id="lastModifiedDate" th:text="#{general.label.lastmodifieddate}">Last Modified Date</th>
+							<th id="lastModifiedBy" th:text="#{general.label.lastmodifiedby}">Last Modified By</th>
+							<th id="actions" th:text="#{general.label.actions}">Actions</th>
 						</tr>
 					</thead>
 				</table>
