@@ -7,13 +7,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ewapp.gbank.model.User;
 
-public class AoxuUserDetails implements UserDetails {
+public class EwappUserDetails implements UserDetails {
 
   private static final long serialVersionUID = 758901163060223566L;
 
   private final User user;
 
-  public AoxuUserDetails(User user) {
+  public EwappUserDetails(User user) {
     this.user = user;
   }
 

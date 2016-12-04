@@ -11,7 +11,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-public class AoxuWebMvcConfigurationAdapter extends WebMvcConfigurerAdapter {
+public class EwappWebMvcConfigurationAdapter extends WebMvcConfigurerAdapter {
 
   @Autowired
   private ITemplateResolver templateResolver;

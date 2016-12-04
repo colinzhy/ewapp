@@ -1,11 +1,8 @@
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:dt="http://github.com/dandelion/datatables"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-	layout:decorator="layout/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorator="layout/layout">
 <head>
-<meta charset="utf-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <title>500 Error</title>
 </head>
 <body>
@@ -32,19 +29,16 @@
 					</h3>
 
 					<p>
-						We will work on fixing that right away. Meanwhile, you may <a
-							href="/">return to dashboard</a> or try using the
+						We will work on fixing that right away. Meanwhile, you may <a href="/">return to dashboard</a> or try using the
 						search form.
 					</p>
 
 					<form class="search-form">
 						<div class="input-group">
-							<input type="text" name="search" class="form-control"
-								placeholder="Search"/>
+							<input type="text" name="search" class="form-control" placeholder="Search" />
 
 							<div class="input-group-btn">
-								<button type="submit" name="submit"
-									class="btn btn-danger btn-flat">
+								<button type="submit" name="submit" class="btn btn-danger btn-flat">
 									<i class="fa fa-search"></i>
 								</button>
 							</div>
@@ -61,8 +55,7 @@
 			<div th:utext="'Failed URL: ' +  ${url}" th:remove="tag">${url}</div>
 			<div th:utext="'Exception: ' + ${exception.message}" th:remove="tag">${exception.message}</div>
 			<ul th:remove="tag">
-				<li th:each="ste : ${exception.stackTrace}" th:remove="tag"><span
-					th:utext="${ste}" th:remove="tag">${ste}</span></li>
+				<li th:each="ste : ${exception.stackTrace}" th:remove="tag"><span th:utext="${ste}" th:remove="tag">${ste}</span></li>
 			</ul>
 			<div th:utext="'--&gt;'" th:remove="tag"></div>
 		</div>

@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	xmlns:dt="http://github.com/dandelion/datatables"
-	layout:decorator="layout/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/layout">
 <head>
 <meta charset="utf-8" />
 </head>
@@ -14,8 +11,7 @@
 			</div>
 			<!-- /.box-header -->
 			<div class="box-body">
-				<table id="userTable" dt:table="true" dt:serverSide="true"
-					dt:url="@{/user/list}">
+				<table id="userTable" dt:table="true" dt:serverSide="true" dt:url="@{/user/list}">
 					<thead>
 						<tr>
 							<th dt:property="userName" th:text="#{user.label.username}">User Name</th>
